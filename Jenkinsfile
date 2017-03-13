@@ -1,7 +1,7 @@
 #!groovy
 //---------------------------------------------------------------------------
 import groovy.transform.Field
-//import static java.util.Arrays.asList
+import static java.util.Arrays.asList
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
 
@@ -17,6 +17,7 @@ DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/testcommon'
 
 echo 'Pass 1'
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-infrastructure/public-sample-repo/master/help_new.groovy'
+def fortifyScriptUrl = 'https://github.wdf.sap.corp/raw/ContinuousDelivery/jenkins-pipelines/master/scripts/fortifychecks.py'
 
 @Field def helper
 node{
