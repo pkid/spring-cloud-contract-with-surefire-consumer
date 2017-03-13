@@ -29,14 +29,13 @@ node{
 echo 'Pass 2'
 
 // global variables
-def githubInfo = helper.getGithubInfo()
-def githubOrg = githubInfo['org']
-def githubRepo = githubInfo['repo']
-def githubBranch = githubInfo['branch']
-echo githubBranch
-
-def gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
-echo gitUrl
+//def githubInfo = helper.getGithubInfo()
+//def githubOrg = githubInfo['org']
+//def githubRepo = githubInfo['repo']
+//def githubBranch = githubInfo['branch']
+//echo githubBranch
+//def gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
+//echo gitUrl
 
 def newDockerImage
 
