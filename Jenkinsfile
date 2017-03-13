@@ -10,7 +10,7 @@ DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
 DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/testcommon'
 
 echo 'Pass 1'
-def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll/jenkins-pipeline-parent/master/help_new.groovy'
+def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-infrastructure/public-sample-repo/master/help_new.groovy'
 
 @Field def helper
 node{
