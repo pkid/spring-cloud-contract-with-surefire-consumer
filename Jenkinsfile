@@ -43,9 +43,9 @@ stage('Commit') {
     node {
         deleteDir()
         git url: 'git@github.wdf.sap.corp:nextgenpayroll/testcommon.git'
-        def newPOMVersion = adjustPOMVersion()
-        tagChangesToGit(newPOMVersion)
-        uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
-        newDockerImage = buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
+        def newPOMVersion = helper.adjustPOMVersion()
+        helper.tagChangesToGit(newPOMVersion)
+        helper.uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
+        newDockerImage = helper.buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
     }
 }
