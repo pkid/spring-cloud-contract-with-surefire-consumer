@@ -1,4 +1,10 @@
 #!groovy
+//---------------------------------------------------------------------------
+import groovy.transform.Field
+//import static java.util.Arrays.asList
+//import hudson.plugins.performance.JMeterParser
+//---------------------------------------------------------------------------
+
 // nexus
 NEXUS_URL = 'http://nexus.wdf.sap.corp:8081/nexus/content/repositories/'
 NEXUS_SNAPSHOTS_REPOSITORY = 'deploy.snapshots/'
