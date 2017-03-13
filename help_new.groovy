@@ -1,4 +1,4 @@
-
+/*
  * This function assumes a version M.m.i-SNAPSHOT in the pom.xml and creates a new version M.m.i-SHA-SNAPSHOT
  * SHA is the github commit id
  */
