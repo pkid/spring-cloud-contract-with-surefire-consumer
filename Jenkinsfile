@@ -48,8 +48,7 @@ stage('Commit') {
 		echo "Stage 2"
         git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
 		echo "Stage 3"
-		def version = ${project.version}
-        def newPOMVersion = helper.adjustPOMVersion(version)
+        def newPOMVersion = adjustPOMVersion()
 		echo "Stage 4"
         tagChangesToGit(newPOMVersion)
 		echo "Stage 5"
