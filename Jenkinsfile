@@ -13,7 +13,7 @@ NEXUS_SNAPSHOTS_REPOSITORY = "deploy.snapshots/"
 DOCKER_ARTIFACTORY_URL = "docker.wdf.sap.corp:51032"
 DOCKER_ARTIFACTORY_USER = "ASA1_NEXTGENPAYROLL"
 DOCKER_ARTIFACTORY_PASSWORD = "uyN}77vY}A39KUm5lEgS"
-DOCKER_ARTIFACTORY_REPO_NAME = "/prototype/testcommon"
+DOCKER_ARTIFACTORY_REPO_NAME = "/prototype/test/public-sample-repo"
 
 //echo "Pass 1"
 //def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
