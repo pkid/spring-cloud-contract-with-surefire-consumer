@@ -48,7 +48,7 @@ stage('Commit') {
 		echo "Stage 2"
         git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
 		echo "Stage 3"
-		def actualPOMVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
+		def actualPOMVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
         echo actualPOMVersion
 		def newPOMVersion = helper.adjustPOMVersion(actualPOMVersion)
 		echo "Stage 4"
