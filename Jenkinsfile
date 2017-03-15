@@ -1,6 +1,6 @@
 #!groovy
 //---------------------------------------------------------------------------
-import groovy.transform.Field
+//import groovy.transform.Field
 //import static java.util.Arrays.asList
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
@@ -15,36 +15,39 @@ DOCKER_ARTIFACTORY_USER = "ASA1_NEXTGENPAYROLL"
 DOCKER_ARTIFACTORY_PASSWORD = "uyN}77vY}A39KUm5lEgS"
 DOCKER_ARTIFACTORY_REPO_NAME = "/prototype/testcommon"
 
-echo "Pass 1"
-def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
-
-@Field def helper
-node{
-    deleteDir()
-    if(!fileExists('.pipeline')) sh 'mkdir .pipeline'
-    sh "curl --insecure ${helperScriptUrl} -o .pipeline/helper.groovy"
-    helper = load '.pipeline/helper.groovy'
-}
-echo 'Pass 2'
+//echo "Pass 1"
+//def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
+//
+//@Field def helper
+//node{
+//    deleteDir()
+//    if(!fileExists('.pipeline')) sh 'mkdir .pipeline'
+//    sh "curl --insecure ${helperScriptUrl} -o .pipeline/helper.groovy"
+//    helper = load '.pipeline/helper.groovy'
+//}
+//echo 'Pass 2'
+//
+//// global variables
+//def githubInfo = helper.getGithubInfo()
+//def githubOrg = githubInfo['org']
+//def githubRepo = githubInfo['repo']
+//def githubBranch = githubInfo['branch']
+//echo githubBranch
+//def gitUrl = 'git@github.wdf.sap.corp:' + ${githubOrg} + '/' + ${githubRepo} + '.git'
+//echo "${gitUrl}"
+// global variables
 
 // global variables
-def githubInfo = helper.getGithubInfo()
-def githubOrg = githubInfo['org']
-def githubRepo = githubInfo['repo']
-def githubBranch = githubInfo['branch']
-echo githubBranch
-def gitUrl = 'git@github.wdf.sap.corp:' + ${githubOrg} + '/' + ${githubRepo} + '.git'
-echo "${gitUrl}"
 
 def newDockerImage
 
 stage('Commit') {
     node {
         deleteDir()
-        git url: 'git@github.wdf.sap.corp:nextgenpayroll/testcommon.git'
-        def newPOMVersion = helper.adjustPOMVersion()
-        helper.tagChangesToGit(newPOMVersion)
-        helper.uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
-        newDockerImage = helper.buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
+        git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
+        def newPOMVersion = adjustPOMVersion()
+        tagChangesToGit(newPOMVersion)
+        uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
+        newDockerImage = buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
     }
 }
