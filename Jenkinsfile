@@ -43,12 +43,19 @@ def newDockerImage
 
 stage('Commit') {
     node {
+		echo "Stage 1"
         deleteDir()
+		echo "Stage 2"
         git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
+		echo "Stage 3"
         def newPOMVersion = adjustPOMVersion()
+		echo "Stage 4"
         tagChangesToGit(newPOMVersion)
+		echo "Stage 5"
         uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
+		echo "Stage 6"
         newDockerImage = buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
+		echo "Stage 7"
     }
 }
 
