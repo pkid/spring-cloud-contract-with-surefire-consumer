@@ -6,16 +6,16 @@ import groovy.transform.Field
 //---------------------------------------------------------------------------
 
 // nexus
-NEXUS_URL = 'http://nexus.wdf.sap.corp:8081/nexus/content/repositories/'
-NEXUS_SNAPSHOTS_REPOSITORY = 'deploy.snapshots/'
+NEXUS_URL = "http://nexus.wdf.sap.corp:8081/nexus/content/repositories/"
+NEXUS_SNAPSHOTS_REPOSITORY = "deploy.snapshots/"
 
 // docker artifactory
-DOCKER_ARTIFACTORY_URL = 'docker.wdf.sap.corp:51032'
-DOCKER_ARTIFACTORY_USER = 'ASA1_NEXTGENPAYROLL'
-DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
-DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/testcommon'
+DOCKER_ARTIFACTORY_URL = "docker.wdf.sap.corp:51032"
+DOCKER_ARTIFACTORY_USER = "ASA1_NEXTGENPAYROLL"
+DOCKER_ARTIFACTORY_PASSWORD = "uyN}77vY}A39KUm5lEgS"
+DOCKER_ARTIFACTORY_REPO_NAME = "/prototype/testcommon"
 
-echo 'Pass 1'
+echo "Pass 1"
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
 
 @Field def helper
@@ -28,13 +28,13 @@ node{
 echo 'Pass 2'
 
 // global variables
-//def githubInfo = helper.getGithubInfo()
-//def githubOrg = githubInfo['org']
-//def githubRepo = githubInfo['repo']
-//def githubBranch = githubInfo['branch']
-//echo githubBranch
-//def gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
-//echo gitUrl
+def githubInfo = helper.getGithubInfo()
+def githubOrg = githubInfo['org']
+def githubRepo = githubInfo['repo']
+def githubBranch = githubInfo['branch']
+echo githubBranch
+def gitUrl = 'git@github.wdf.sap.corp:' + ${githubOrg} + '/' + ${githubRepo} + '.git'
+echo "${gitUrl}"
 
 def newDockerImage
 
