@@ -20,7 +20,6 @@ echo "Pass 1"
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
 
 @Class helper = null
-
 node{
     deleteDir()
     if(!fileExists('.pipeline')) sh 'mkdir .pipeline'
@@ -55,13 +54,13 @@ stage('Commit') {
 		println "Stage 34"
 //		def actualPOMVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
 //        println actualPOMVersion
-		def newPOMVersion = helper.adjustPOMVersion()
+		def newPOMVersion = adjustPOMVersion()
 		println "Stage 4"
-        helper.tagChangesToGit(newPOMVersion)
+        tagChangesToGit(newPOMVersion)
 		println "Stage 5"
-        helper.uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
+        uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
 		println "Stage 6"
-        newDockerImage = helper.buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
+        newDockerImage = buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
 		println "Stage 7"
     }
 }
@@ -98,20 +97,20 @@ def executeShell(command) {
  * This function assumes a version M.m.i-SNAPSHOT in the pom.xml and creates a new version M.m.i-SHA-SNAPSHOT
  * SHA is the github commit id
  */
-//def adjustPOMVersion() {
-//	// get the version, e.g., M.m.i-SNAPSHOT
-//	def baseVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
-//
-//	// create the new version, e.g., M.m.i-SHA-SNAPSHOT
-//	def currentCommitSHA = getCurrentCommitSHA()
-//	def parts = baseVersion.split('-')
-//	def newVersion = parts[0] + '-' + currentCommitSHA + '-' + parts[1]
-//	
-//	// change the version in POM
-//	sh "echo POM new version: $newVersion"
-//	sh "mvn -B versions:set -DnewVersion=${newVersion}"
-//	return newVersion
-//}
+def adjustPOMVersion() {
+	// get the version, e.g., M.m.i-SNAPSHOT
+	def baseVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
+
+	// create the new version, e.g., M.m.i-SHA-SNAPSHOT
+	def currentCommitSHA = getCurrentCommitSHA()
+	def parts = baseVersion.split('-')
+	def newVersion = parts[0] + '-' + currentCommitSHA + '-' + parts[1]
+	
+	// change the version in POM
+	sh "echo POM new version: $newVersion"
+	sh "mvn -B versions:set -DnewVersion=${newVersion}"
+	return newVersion
+}
 
 def tagChangesToGit(version) {
 	sh """
