@@ -1,13 +1,10 @@
 #!groovy
 //---------------------------------------------------------------------------
 import groovy.transform.Field
-import java.io.File
-import java.lang.String
 //import static java.util.Arrays.asList
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
 
-evaluate(new File("https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy"))
 
 //nexus
 NEXUS_URL = 'http://nexus.wdf.sap.corp:8081/nexus/content/repositories/'
