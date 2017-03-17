@@ -1,6 +1,7 @@
 #!groovy
 //---------------------------------------------------------------------------
 //import groovy.transform.Field
+import groovy.lang.Binding
 //import static java.util.Arrays.asList
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
