@@ -19,7 +19,7 @@ DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
 echo "Pass 1"
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
 
-def helper
+def helper = null
 
 node{
     deleteDir()
