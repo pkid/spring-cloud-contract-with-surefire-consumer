@@ -20,13 +20,11 @@ DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
 echo "Pass 1"
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
 
-def helper
-
 node{
     deleteDir()
     if(!fileExists('.pipeline')) sh 'mkdir .pipeline'
     sh "curl --insecure ${helperScriptUrl} -o .pipeline/custom_helper.groovy"
-    helper = load '.pipeline/custom_helper.groovy'
+    def helper = load '.pipeline/custom_helper.groovy'
 	echo helper.doStuff()
 }
 echo 'Pass 2'
