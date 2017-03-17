@@ -48,6 +48,8 @@ def newDockerImage
 stage('Commit') {
     node {
 		println "Stage 1"
+		echo helper.doStuff()
+		
         deleteDir()
 		println "Stage 2"
         git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
