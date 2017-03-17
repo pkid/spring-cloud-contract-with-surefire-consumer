@@ -43,21 +43,21 @@ def newDockerImage
 
 stage('Commit') {
     node {
-		echo "Stage 1"
+		println "Stage 1"
         deleteDir()
-		echo "Stage 2"
+		println "Stage 2"
         git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
-		echo "Stage 3"
+		println "Stage 3"
 		def actualPOMVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
-        echo actualPOMVersion
+        println actualPOMVersion
 		def newPOMVersion = helper.adjustPOMVersion(actualPOMVersion)
-		echo "Stage 4"
+		println "Stage 4"
         helper.tagChangesToGit(newPOMVersion)
-		echo "Stage 5"
+		println "Stage 5"
         helper.uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
-		echo "Stage 6"
+		println "Stage 6"
         newDockerImage = helper.buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
-		echo "Stage 7"
+		println "Stage 7"
     }
 }
 
