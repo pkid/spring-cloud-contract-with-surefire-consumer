@@ -25,7 +25,7 @@ node{
     deleteDir()
     if(!fileExists('.pipeline')) sh 'mkdir .pipeline'
     sh "curl --insecure ${helperScriptUrl} -o .pipeline/custom_helper.groovy"
-    helper = load '.pipeline/custom_helper.groovy'
+    def helper = load '.pipeline/custom_helper.groovy'
     echo helper.doStuff()
 }
 echo 'Pass 2'
