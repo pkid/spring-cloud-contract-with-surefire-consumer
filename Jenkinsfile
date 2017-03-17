@@ -1,7 +1,6 @@
 #!groovy
 //---------------------------------------------------------------------------
-//import groovy.transform.Field
-import groovy.lang.Binding
+import groovy.transform.Field
 //import static java.util.Arrays.asList
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
@@ -19,6 +18,8 @@ DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
 
 echo "Pass 1"
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
+
+@Field def helper
 
 node{
     deleteDir()
