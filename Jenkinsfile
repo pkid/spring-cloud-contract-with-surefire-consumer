@@ -54,7 +54,7 @@ stage('Commit') {
 		println "Stage 34"
 //		def actualPOMVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
 //        println actualPOMVersion
-		def newPOMVersion = adjustPOMVersion()
+		def newPOMVersion = helper.adjustPOMVersion()
 		println "Stage 4"
         tagChangesToGit(newPOMVersion)
 		println "Stage 5"
