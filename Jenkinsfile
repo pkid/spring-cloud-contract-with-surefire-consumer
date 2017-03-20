@@ -58,7 +58,7 @@ stage('Commit') {
 //        println actualPOMVersion
 		def newPOMVersion = adjustPOMVersion()
 		println "Stage 4"
-        helper.tagChangesToGit(newPOMVersion)
+        tagChangesToGit(newPOMVersion)
 		println "Stage 5"
         uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
 		println "Stage 6"
