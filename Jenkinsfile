@@ -28,16 +28,17 @@ node{
     echo helper.doStuff()
 }
 echo 'Pass 2'
-//
-//// global variables
-//def githubInfo = helper.getGithubInfo()
-//def githubOrg = githubInfo['org']
-//def githubRepo = githubInfo['repo']
-//def githubBranch = githubInfo['branch']
-//echo githubBranch
-//def gitUrl = 'git@github.wdf.sap.corp:' + ${githubOrg} + '/' + ${githubRepo} + '.git'
-//echo "${gitUrl}"
+
+echo'try git'
 // global variables
+def githubInfo = helper.getGithubInfo()
+def githubOrg = githubInfo['org']
+def githubRepo = githubInfo['repo']
+def githubBranch = githubInfo['branch']
+echo githubBranch
+def gitUrl = 'git@github.wdf.sap.corp:' + ${githubOrg} + '/' + ${githubRepo} + '.git'
+echo "${gitUrl}"
+ global variables
 
 // global variables
 
@@ -52,7 +53,6 @@ stage('Commit') {
 		println "Stage 2"
         git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
 		println "Stage 3"
-		echo '${project.version}'
 //		def actualPOMVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
 //        println actualPOMVersion
 		def newPOMVersion = helper.adjustPOMVersion()
