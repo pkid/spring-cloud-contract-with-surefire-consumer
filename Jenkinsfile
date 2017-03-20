@@ -23,8 +23,8 @@ def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-
 node{
     deleteDir()
     if(!fileExists('.pipeline')) sh 'mkdir .pipeline'
-    sh "curl --insecure ${helperScriptUrl} -o .pipeline/custom_helper.groovy"
-    helper = load '.pipeline/custom_helper.groovy'
+    sh "curl --insecure ${helperScriptUrl} -o .pipeline/custom_helper"
+    helper = load '.pipeline/custom_helper'
     echo helper.doStuff()
 }
 echo 'Pass 2'
