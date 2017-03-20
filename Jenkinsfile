@@ -31,6 +31,7 @@ echo 'Pass 2'
 
 echo'try git'
 // global variables
+echo "${env.JOB_NAME}"
 def githubInfo = helper.getGithubInfo("${env.JOB_NAME}")
 def githubOrg = githubInfo['org']
 def githubRepo = githubInfo['repo']
