@@ -17,14 +17,14 @@ DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
 DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
 
 echo "Pass 1"
-def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper'
+def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
 
 @Class helper = null
 node{
     deleteDir()
     if(!fileExists('.pipeline')) sh 'mkdir .pipeline'
-    sh "curl --insecure ${helperScriptUrl} -o .pipeline/custom_helper"
-    helper = load '.pipeline/custom_helper'
+    sh "curl --insecure ${helperScriptUrl} -o .pipeline/custom_helper.groovy"
+    helper = load '.pipeline/custom_helper.groovy'
     echo helper.doStuff()
 }
 echo 'Pass 2'
@@ -56,7 +56,7 @@ stage('Commit') {
 		println "Stage 3"
 //		def actualPOMVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
 //        println actualPOMVersion
-		def newPOMVersion = helper.adjustPOMVersion()
+		def newPOMVersion = adjustPOMVersion()
 		println "Stage 4"
         helper.tagChangesToGit(newPOMVersion)
 		println "Stage 5"
