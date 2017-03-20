@@ -1,4 +1,4 @@
-#!groovy
+#!/usr/bin/env groovy
 //---------------------------------------------------------------------------
 import groovy.transform.*
 //import static java.util.Arrays.asList
@@ -29,17 +29,17 @@ node{
 }
 echo 'Pass 2'
 
-echo'try git'
+//echo'try git'
+//// global variables
+//echo "${env.JOB_NAME}"
+//def githubInfo = helper.getGithubInfo("${env.JOB_NAME}")
+//def githubOrg = githubInfo['org']
+//def githubRepo = githubInfo['repo']
+//def githubBranch = githubInfo['branch']
+//echo githubBranch
+//def gitUrl = 'git@github.wdf.sap.corp:' + ${githubOrg} + '/' + ${githubRepo} + '.git'
+//echo "${gitUrl}"
 // global variables
-echo "${env.JOB_NAME}"
-def githubInfo = helper.getGithubInfo("${env.JOB_NAME}")
-def githubOrg = githubInfo['org']
-def githubRepo = githubInfo['repo']
-def githubBranch = githubInfo['branch']
-echo githubBranch
-def gitUrl = 'git@github.wdf.sap.corp:' + ${githubOrg} + '/' + ${githubRepo} + '.git'
-echo "${gitUrl}"
- global variables
 
 // global variables
 
