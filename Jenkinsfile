@@ -9,33 +9,37 @@ import hudson.model.*
 //nexus
 NEXUS_URL = 'http://nexus.wdf.sap.corp:8081/nexus/content/repositories/'
 NEXUS_SNAPSHOTS_REPOSITORY = 'deploy.snapshots/'
+//---------------------------------------------------------------------------
 
 // docker artifactory
 DOCKER_ARTIFACTORY_URL = 'docker.wdf.sap.corp:51032'
 DOCKER_ARTIFACTORY_USER = 'ASA1_NEXTGENPAYROLL'
 DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
 DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
+//---------------------------------------------------------------------------
 
 //variables
 def newDockerImage
+//---------------------------------------------------------------------------
 
 //stages
 stage('Commit') {
     node {
-        deleteDir()
+		deleteDir()
 		println "set git url"
-        git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
+		git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
 		println "create new POM version"
 		def newPOMVersion = adjustPOMVersion()
 		println "tag new POM version to GIT"
-        tagChangesToGit(newPOMVersion)
+		tagChangesToGit(newPOMVersion)
 		println "upload artifacts to nexus"
-        uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
+		uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
 		println "build new docker image and push to artifactory"
-        newDockerImage = buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
+		newDockerImage = buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
 		println "finish stage"
     }
 }
+//---------------------------------------------------------------------------
 
 //HELPER-METHODES
 
@@ -72,11 +76,11 @@ def getCurrentCommitSHA() {
 
 def tagChangesToGit(version) {
 	sh """
-     git add pom.xml
-     git commit -m "update pom version BUT ONLY TO A GIT TAG"
-     git tag "BUILD_${version}" -f
-     git push origin "BUILD_${version}" -f
-    """
+		git add pom.xml
+		git commit -m "update pom version BUT ONLY TO A GIT TAG"
+		git tag "BUILD_${version}" -f
+		git push origin "BUILD_${version}" -f
+	"""
 }
 
 def uploadArtifactsToNexus(nexus_url, nexus_repo){
