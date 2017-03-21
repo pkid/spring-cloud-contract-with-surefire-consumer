@@ -6,6 +6,10 @@ import hudson.model.*
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
 
+//service
+SERVICE_NAME = 'public-sample-repo'
+//---------------------------------------------------------------------------
+
 //nexus
 NEXUS_URL = 'http://nexus.wdf.sap.corp:8081/nexus/content/repositories/'
 NEXUS_SNAPSHOTS_REPOSITORY = 'deploy.snapshots/'
@@ -15,11 +19,11 @@ NEXUS_SNAPSHOTS_REPOSITORY = 'deploy.snapshots/'
 DOCKER_ARTIFACTORY_URL = 'docker.wdf.sap.corp:51032'
 DOCKER_ARTIFACTORY_USER = 'ASA1_NEXTGENPAYROLL'
 DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
-DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
+DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/${SERVICE_NAME}'
 //---------------------------------------------------------------------------
 
 //git
-GIT_URL = 'git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git'
+GIT_URL = 'git@github.wdf.sap.corp:nextgenpayroll-infrastructure/${SERVICE_NAME}.git'
 //---------------------------------------------------------------------------
 
 //variables
