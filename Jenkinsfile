@@ -1,10 +1,10 @@
 #!/usr/bin/env groovy
 //---------------------------------------------------------------------------
 import groovy.transform.*
+import hudson.model.*
 //import static java.util.Arrays.asList
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
-
 
 //nexus
 NEXUS_URL = 'http://nexus.wdf.sap.corp:8081/nexus/content/repositories/'
@@ -15,6 +15,9 @@ DOCKER_ARTIFACTORY_URL = 'docker.wdf.sap.corp:51032'
 DOCKER_ARTIFACTORY_USER = 'ASA1_NEXTGENPAYROLL'
 DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
 DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
+
+def user = hudson.model.User.get('username')
+println "Job started by ${user}"
 
 echo "Pass 1"
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
