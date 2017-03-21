@@ -18,16 +18,19 @@ DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
 DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
 //---------------------------------------------------------------------------
 
+//git
+GIT_URL = 'git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git'
+//---------------------------------------------------------------------------
+
 //variables
 def newDockerImage
-def git_url = 'git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git'
 //---------------------------------------------------------------------------
 
 //stages
 stage('Commit') {
     node {
 		deleteDir()
-		git url: git_url
+		git url: GIT_URL
 		println "create new POM version"
 		def newPOMVersion = adjustPOMVersion()
 		println "tag new POM version to GIT"
