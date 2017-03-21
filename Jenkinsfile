@@ -20,14 +20,13 @@ DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
 
 //variables
 def newDockerImage
+git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
 //---------------------------------------------------------------------------
 
 //stages
 stage('Commit') {
     node {
 		deleteDir()
-		println "set git url"
-		git url: "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/public-sample-repo.git"
 		println "create new POM version"
 		def newPOMVersion = adjustPOMVersion()
 		println "tag new POM version to GIT"
