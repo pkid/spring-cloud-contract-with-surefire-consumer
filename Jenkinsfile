@@ -16,8 +16,11 @@ DOCKER_ARTIFACTORY_USER = 'ASA1_NEXTGENPAYROLL'
 DOCKER_ARTIFACTORY_PASSWORD = 'uyN}77vY}A39KUm5lEgS'
 DOCKER_ARTIFACTORY_REPO_NAME = '/prototype/test/public-sample-repo'
 
-def user = hudson.model.User.get('username')
-println "Job started by ${user}"
+@Field user = null
+node {
+	user = hudson.model.User.get('username')
+	println "Job started by ${user}"
+}
 
 echo "Pass 1"
 def helperScriptUrl = 'https://github.wdf.sap.corp/raw/nextgenpayroll-zugspitze-infrastructure/internal-jenkins-pipeline-parent/master/custom_helper.groovy'
