@@ -10,6 +10,7 @@
 
     <name>sample-repo</name>
     <description>Sample Repo</description>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
