@@ -122,13 +122,14 @@ def mavenBuild(String goal) {
 }
 
 def getGithubInfo() {
+    echo "get GIT infos"
     def githubInfo = [:]
     def tokens = "${env.JOB_NAME}".tokenize('/')
     githubInfo['org'] = tokens[tokens.size()-3]
-    echo githubInfo['org']
+    echo "Organization: " + githubInfo['org']
     githubInfo['repo'] = tokens[tokens.size()-2]
-    echo githubInfo['repo']
+    echo "Repository: " + githubInfo['repo']
     githubInfo['branch'] = tokens[tokens.size()-1]
-    echo githubInfo['branch']
+    echo "Branch: " + githubInfo['branch']
     return githubInfo
 }
