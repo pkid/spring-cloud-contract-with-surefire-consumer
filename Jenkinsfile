@@ -7,7 +7,15 @@ import hudson.model.*
 //---------------------------------------------------------------------------
 
 //service
-SERVICE_NAME = "public-sample-repo"
+//SERVICE_NAME = "public-sample-repo"
+//---------------------------------------------------------------------------
+
+//git
+def githubInfo = getGithubInfo()
+def githubOrg = githubInfo['org']
+def githubRepo = githubInfo['repo']
+def githubBranch = githubInfo['branch']
+def gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
 //---------------------------------------------------------------------------
 
 //nexus
@@ -19,16 +27,10 @@ NEXUS_SNAPSHOTS_REPOSITORY = "deploy.snapshots/"
 DOCKER_ARTIFACTORY_URL = "docker.wdf.sap.corp:51032"
 DOCKER_ARTIFACTORY_USER = "ASA1_NEXTGENPAYROLL"
 DOCKER_ARTIFACTORY_PASSWORD = "uyN}77vY}A39KUm5lEgS"
-DOCKER_ARTIFACTORY_REPO_NAME = "/sandbox/${SERVICE_NAME}"
+DOCKER_ARTIFACTORY_REPO_NAME = "/sandbox/" + githubRepo
 //---------------------------------------------------------------------------
 
-//git
-def githubInfo = getGithubInfo()
-def githubOrg = githubInfo['org']
-def githubRepo = githubInfo['repo']
-def githubBranch = githubInfo['branch']
-def gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
-//---------------------------------------------------------------------------
+echo DOCKER_ARTIFACTORY_REPO_NAME
 
 //variables
 def newDockerImage
