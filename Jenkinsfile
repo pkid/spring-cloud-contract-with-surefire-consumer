@@ -122,7 +122,7 @@ def mavenBuild(String goal) {
 }
 
 def getGithubInfo() {
-    echo "Get Github infos"
+    echo "Get Github info"
     def githubInfo = [:]
     def tokens = "${env.JOB_NAME}".tokenize('/')
     githubInfo['org'] = tokens[tokens.size()-3]
