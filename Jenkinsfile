@@ -23,7 +23,11 @@ DOCKER_ARTIFACTORY_REPO_NAME = "/sandbox/${SERVICE_NAME}"
 //---------------------------------------------------------------------------
 
 //git
-GIT_URL = "git@github.wdf.sap.corp:nextgenpayroll-infrastructure/${SERVICE_NAME}.git"
+def githubInfo = getGithubInfo()
+def githubOrg = githubInfo['org']
+def githubRepo = githubInfo['repo']
+def githubBranch = githubInfo['branch']
+def gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
 //---------------------------------------------------------------------------
 
 //variables
@@ -34,7 +38,7 @@ def newDockerImage
 stage('Commit') {
     node {
 		deleteDir()
-		git url: GIT_URL
+		git url: gitUrl
 		println "create new POM version"
 		def newPOMVersion = adjustPOMVersion()
 		println "tag new POM version to GIT"
@@ -119,4 +123,16 @@ def buildDockerImageAndPushToArtifactory(url, repo, user, password){
 
 def mavenBuild(String goal) {
 	sh "mvn ${goal}"
+}
+
+def getGithubInfo() {
+    def githubInfo = [:]
+    def tokens = "${env.JOB_NAME}".tokenize('/')
+    githubInfo['org'] = tokens[tokens.size()-3]
+    echo githubInfo['org']
+    githubInfo['repo'] = tokens[tokens.size()-2]
+    echo githubInfo['repo']
+    githubInfo['branch'] = tokens[tokens.size()-1]
+    echo githubInfo['branch']
+    return githubInfo
 }
