@@ -19,7 +19,7 @@ NEXUS_SNAPSHOTS_REPOSITORY = "deploy.snapshots/"
 DOCKER_ARTIFACTORY_URL = "docker.wdf.sap.corp:51032"
 DOCKER_ARTIFACTORY_USER = "ASA1_NEXTGENPAYROLL"
 DOCKER_ARTIFACTORY_PASSWORD = "uyN}77vY}A39KUm5lEgS"
-DOCKER_ARTIFACTORY_REPO_NAME = "/${SERVICE_NAME}"
+DOCKER_ARTIFACTORY_REPO_NAME = "/sandbox/${SERVICE_NAME}"
 //---------------------------------------------------------------------------
 
 //git
