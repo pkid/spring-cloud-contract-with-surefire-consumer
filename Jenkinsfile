@@ -6,10 +6,6 @@ import hudson.model.*
 //import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
 
-//service
-//SERVICE_NAME = "public-sample-repo"
-//---------------------------------------------------------------------------
-
 //git
 def githubInfo = getGithubInfo()
 def githubOrg = githubInfo['org']
@@ -29,8 +25,6 @@ DOCKER_ARTIFACTORY_USER = "ASA1_NEXTGENPAYROLL"
 DOCKER_ARTIFACTORY_PASSWORD = "uyN}77vY}A39KUm5lEgS"
 DOCKER_ARTIFACTORY_REPO_NAME = "/sandbox/" + githubRepo
 //---------------------------------------------------------------------------
-
-echo DOCKER_ARTIFACTORY_REPO_NAME
 
 //variables
 def newDockerImage
