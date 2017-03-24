@@ -8,27 +8,45 @@ With the Job the commit gets tagged and pushed to nexus. Also dockerimage gets b
 
 Difference between "normal" project and multi module project:  
 You have to change one line in the `buildDockerImageAndPushToArtifactory`- Methode
-* "Normal" project use: `def jarName = artifactId + "-" + pomVersion + ".jar"`
-* Multi module project use: `def jarName = artifactId + "-service-" + pomVersion + ".jar"`
+* "Normal" project use: 
+```groovy
+        def jarName = artifactId + "-" + pomVersion + ".jar"
+```
+
+* Multi module project use: 
+```groovy
+        def jarName = artifactId + "-service-" + pomVersion + ".jar"
+```
 
 ## Dockerfile
 Just copy the Dockerfile into you project root folder. 
 
 Change the jar-name to you projectsname:  
-`ENV PROJECTNAME = sample.jar` --> `ENV PROJECTNAME = projectname.jar`
-
+```Dockerfile
+        ENV PROJECTNAME = sample.jar` --> `ENV PROJECTNAME = projectname.jar
+```
 Difference between "normal" project and multi module project:  
 You have to change one line inside the Dockerfile
-* "Normal" project use: `ADD /target/$JARNAME $PROJECTNAME`
-* Multi module project use: `ADD /service/target/$JARNAME $PROJECTNAME`
+* "Normal" project use: 
+```Dockerfile
+ADD /target/$JARNAME $PROJECTNAME
+```
+* Multi module project use: 
+```Dockerfile
+ADD /service/target/$JARNAME $PROJECTNAME
+```
 
 ## POM.XML
 Attention with the artifacId's of you different POM-Files:
 * root/pom.xml: 
+```xml
 
         <artifactId>sample-repo</artifactId>
+ ```
+
 * root/api/pom.xml:  
 
+```xml
         <parent>
         ...
             <artifactId>sample-repo</artifactId>
@@ -36,8 +54,10 @@ Attention with the artifacId's of you different POM-Files:
         </parent>
         ...
         <artifactId>sample-repo-api</artifactId>
+```
 * root/service/pom.xml:  
 
+```xml
         <parent>
         ...
             <artifactId>sample-repo</artifactId>
@@ -45,3 +65,4 @@ Attention with the artifacId's of you different POM-Files:
         </parent>
         ...
         <artifactId>sample-repo-service</artifactId>
+```
