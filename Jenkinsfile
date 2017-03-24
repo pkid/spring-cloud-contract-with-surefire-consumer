@@ -107,6 +107,8 @@ def buildDockerImageAndPushToArtifactory(url, repo, user, password){
 	def artifactId = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.artifactId}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
 	
 	def imageName = url + repo + ":" + pomVersion
+	
+	//Note this line as explained in README.md
 	def jarName = artifactId + "-service-" + pomVersion + ".jar"
 
 	sh "docker login -u $user -p $password $url"
