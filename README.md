@@ -1,4 +1,4 @@
-# ngp-sample-repo
+# public-sample-repo
 
 ## Jenkinsfile
 Just copy the Jenkinsfile into you project root folder. 
