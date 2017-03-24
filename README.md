@@ -21,3 +21,27 @@ Difference between "normal" project and multi module project:
 You have to change one line inside the Dockerfile
 * "Normal" project use: `ADD /target/$JARNAME $PROJECTNAME`
 * Multi module project use: `ADD /service/target/$JARNAME $PROJECTNAME`
+
+## POM.XML
+Attention with the artifacId's of you different POM-Files:
+* root/pom.xml: 
+
+        <artifactId>sample-repo</artifactId>
+* root/api/pom.xml:  
+
+        <parent>
+        ...
+            <artifactId>sample-repo</artifactId>
+        ...
+        </parent>
+        ...
+        <artifactId>sample-repo-api</artifactId>
+* root/service/pom.xml:  
+
+        <parent>
+        ...
+            <artifactId>sample-repo</artifactId>
+        ...
+        </parent>
+        ...
+        <artifactId>sample-repo-service</artifactId>
