@@ -29,11 +29,11 @@ Difference between "normal" project and multi module project:
 You have to change one line inside the Dockerfile
 * "Normal" project use: 
 ```Dockerfile
-ADD /target/$JARNAME $PROJECTNAME
+        ADD /target/$JARNAME $PROJECTNAME
 ```
 * Multi module project use: 
 ```Dockerfile
-ADD /service/target/$JARNAME $PROJECTNAME
+        ADD /service/target/$JARNAME $PROJECTNAME
 ```
 
 ## POM.XML
