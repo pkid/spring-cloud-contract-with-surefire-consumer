@@ -1,137 +1,37 @@
 #!/usr/bin/env groovy
 //---------------------------------------------------------------------------
 import groovy.transform.*
-import hudson.model.*
-//import static java.util.Arrays.asList
-//import hudson.plugins.performance.JMeterParser
 //---------------------------------------------------------------------------
 
-//git
-def githubInfo = getGithubInfo()
-def githubOrg = githubInfo['org']
-def githubRepo = githubInfo['repo']
-def githubBranch = githubInfo['branch']
-def gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
-//---------------------------------------------------------------------------
-
-//nexus
-NEXUS_URL = "http://nexus.wdf.sap.corp:8081/nexus/content/repositories/"
-NEXUS_SNAPSHOTS_REPOSITORY = "deploy.snapshots/"
-//---------------------------------------------------------------------------
-
-// docker artifactory
-DOCKER_ARTIFACTORY_URL = "docker.wdf.sap.corp:51032"
-DOCKER_ARTIFACTORY_USER = "ASA1_NEXTGENPAYROLL"
-DOCKER_ARTIFACTORY_PASSWORD = "uyN}77vY}A39KUm5lEgS"
-DOCKER_ARTIFACTORY_REPO_NAME = "/sandbox/" + githubRepo
-//---------------------------------------------------------------------------
+// load pipeline functions
+@Library('ngplibrary')
+def gitPipeline = new io.ngp.GitPipeline()
+def commitPipeline = new io.ngp.CommitPipeline()
 
 //variables
 def newDockerImage
+def githubRepo
+def gitUrl
 //---------------------------------------------------------------------------
 
 //stages
+stage('Get Git Info') {
+    node {
+		deleteDir()
+		def githubInfo = gitPipeline.getGithubInfo()
+		def githubOrg = githubInfo['org']
+		githubRepo = githubInfo['repo']
+		def githubBranch = githubInfo['branch']
+		gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
+    }	
+}
+
 stage('Commit') {
     node {
 		deleteDir()
-		git url: gitUrl
-		println "create new POM version"
-		def newPOMVersion = adjustPOMVersion()
-		println "tag new POM version to GIT"
-		tagChangesToGit(newPOMVersion)
-		println "upload artifacts to nexus"
-		uploadArtifactsToNexus(NEXUS_URL, NEXUS_SNAPSHOTS_REPOSITORY)
-		println "build new docker image and push to artifactory"
-		newDockerImage = buildDockerImageAndPushToArtifactory(DOCKER_ARTIFACTORY_URL, DOCKER_ARTIFACTORY_REPO_NAME, DOCKER_ARTIFACTORY_USER, DOCKER_ARTIFACTORY_PASSWORD)
-		println "finish stage"
+	    	commitPipeline.setGitUrl(gitUrl)
+	   	commitPipeline.setGithubRepo(githubRepo)
+		commitPipeline.commit()
     }
 }
 //---------------------------------------------------------------------------
-
-//HELPER-METHODES
-
-/*
- * This function executes sh statements and returns the output
- */
-def executeShell(command) {
-	def result = sh returnStdout: true, script: command
-	return result.trim()
-}
-
-/*
- * This function assumes a version M.m.i-SNAPSHOT in the pom.xml and creates a new version M.m.i-SHA-SNAPSHOT
- * SHA is the github commit id
- */
-def adjustPOMVersion() {
-	// get the version, e.g., M.m.i-SNAPSHOT
-	def baseVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
-			
-	// create the new version, e.g., M.m.i-SHA-SNAPSHOT
-	def currentCommitSHA = getCurrentCommitSHA()
-	def parts = baseVersion.split('-')
-	def newVersion = parts[0] + '-' + currentCommitSHA + '-' + parts[1]
-					
-	// change the version in POM
-	sh "echo POM new version: $newVersion"
-	sh "mvn -B versions:set -DnewVersion=${newVersion}"
-	return newVersion
-}
-
-def getCurrentCommitSHA() {
-	return executeShell('git rev-parse HEAD')
-}
-
-def tagChangesToGit(version) {
-	sh """
-		git add pom.xml
-		git commit -m "update pom version BUT ONLY TO A GIT TAG"
-		git tag "BUILD_${version}" -f
-		git push origin "BUILD_${version}" -f
-	"""
-}
-
-def uploadArtifactsToNexus(nexus_url, nexus_repo){
-	sh "mvn -DperformRelease=true deploy -DaltDeploymentRepository=$nexus_repo::default::$nexus_url$nexus_repo"
-}
-
-/*
- * This function builds a docker image using the Dockerfile and push the image to Artifactory
- */
-def buildDockerImageAndPushToArtifactory(url, repo, user, password){
-	if(! fileExists ('Dockerfile')){
-		echo 'Dockerfile does not exist - skip building docker images'
-		return
-	}
-	
-	def pomVersion = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.version}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
-	def artifactId = executeShell 'mvn -q -Dexec.executable=\'echo\' -Dexec.args=\'${project.artifactId}\' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.3.1:exec'
-	
-	def imageName = url + repo + ":" + pomVersion
-	
-	//Note this line as explained in README.md
-	def jarName = artifactId + "-service-" + pomVersion + ".jar"
-
-	sh "docker login -u $user -p $password $url"
-	sh "docker build --build-arg JARNAME=$jarName -t  $imageName ."
-	sh "docker push $imageName"
-	sh "docker rmi $imageName"
-	
-	return imageName
-}
-
-def mavenBuild(String goal) {
-	sh "mvn ${goal}"
-}
-
-def getGithubInfo() {
-    echo "Get Github info"
-    def githubInfo = [:]
-    def tokens = "${env.JOB_NAME}".tokenize('/')
-    githubInfo['org'] = tokens[tokens.size()-3]
-    echo "Organization: " + githubInfo['org']
-    githubInfo['repo'] = tokens[tokens.size()-2]
-    echo "Repository: " + githubInfo['repo']
-    githubInfo['branch'] = tokens[tokens.size()-1]
-    echo "Branch: " + githubInfo['branch']
-    return githubInfo
-}
