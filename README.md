@@ -6,18 +6,6 @@ Just copy the Jenkinsfile into you project root folder.
 This Jenkinsfile creates a job for service in Jenkins.  
 With the Job the commit gets tagged and pushed to nexus. Also dockerimage gets build (related to Dockerfile inside the project) and pushed to Artifactory.
 
-Difference between "normal" project and multi module project:  
-You have to change one line in the `buildDockerImageAndPushToArtifactory`- Methode
-* "Normal" project use: 
-```groovy
-        def jarName = artifactId + "-" + pomVersion + ".jar"
-```
-
-* Multi module project use: 
-```groovy
-        def jarName = artifactId + "-service-" + pomVersion + ".jar"
-```
-
 ## Dockerfile
 Just copy the Dockerfile into you project root folder. 
 
