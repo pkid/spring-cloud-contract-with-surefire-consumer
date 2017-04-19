@@ -31,7 +31,8 @@ stage('Commit') {
 		deleteDir()
 	    	commitPipeline.setGitUrl(gitUrl)
 	   	commitPipeline.setGithubRepo(githubRepo)
-		commitPipeline.commit()
+		echo "Jenkinsfile: $githubRepo"
+	    	commitPipeline.commit()
     }
 }
 //---------------------------------------------------------------------------
