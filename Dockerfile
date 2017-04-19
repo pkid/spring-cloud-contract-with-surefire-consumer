@@ -1,5 +1,5 @@
 FROM java:jre-alpine
 ARG JARNAME
-ADD /service/target/$JARNAME $JARNAME
-RUN sh -c 'touch /' + $JARNAME
-ENTRYPOINT exec java $JAVA_OPTS -jar $JARNAME
+ADD /service/target/$JARNAME service.jar
+RUN sh -c 'touch /service.jar'
+ENTRYPOINT exec java $JAVA_OPTS -jar service.jar
