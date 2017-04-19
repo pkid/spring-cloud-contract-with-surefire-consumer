@@ -14,3 +14,4 @@ spec:
     name: {{ .Values.service.name }}
   selector:
     app: mysample
+  type: NodePort
