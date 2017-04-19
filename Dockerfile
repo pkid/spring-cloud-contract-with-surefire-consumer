@@ -3,4 +3,4 @@ ARG JARNAME
 ENV PROJECTNAME = sample.jar
 ADD /service/target/$JARNAME $PROJECTNAME
 RUN sh -c 'touch /' + $PROJECTNAME
-ENTRYPOINT exec java $JAVA_OPTS -jar /service/target/$PROJECTNAME
+ENTRYPOINT exec java $JAVA_OPTS -jar /service/target/sample.jar
