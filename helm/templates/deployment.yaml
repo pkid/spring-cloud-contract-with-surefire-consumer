@@ -13,7 +13,7 @@ spec:
         app: {{ template "fullname" . }}
     spec:
       imagePullSecrets:
-        - name: artifactory-secret
+        - name: ngpregistry
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}"
