@@ -12,6 +12,8 @@ spec:
       labels:
         app: {{ template "fullname" . }}
     spec:
+      imagePullSecrets:
+        - name: artifactory-secret
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}"
