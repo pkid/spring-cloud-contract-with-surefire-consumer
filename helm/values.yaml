@@ -4,7 +4,7 @@
 replicaCount: 1
 image:
   repository: docker.wdf.sap.corp:51032/sandbox/public-sample-repo:latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 service:
   name: sample-service
   type: NodePort
