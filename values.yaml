@@ -6,7 +6,7 @@ image:
   repository: docker.wdf.sap.corp:51032/sandbox/public-sample-repo:latest
   pullPolicy: IfNotPresent
 service:
-  name: nginx
+  name: sample-service
   type: ClusterIP
 resources:
   limits:
