@@ -9,10 +9,6 @@ With the Job the commit gets tagged and pushed to nexus. Also dockerimage gets b
 ## Dockerfile
 Just copy the Dockerfile into you project root folder. 
 
-Change the jar-name to you projectsname:  
-```Dockerfile
-        ENV PROJECTNAME = sample.jar` --> `ENV PROJECTNAME = projectname.jar
-```
 Difference between "normal" project and multi module project:  
 You have to change one line inside the Dockerfile
 * "Normal" project use: 
