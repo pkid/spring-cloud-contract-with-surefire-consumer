@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: docker.wdf.sap.corp:51032/sandbox/public-sample-repo:latest
+  repository: docker.wdf.sap.corp:51032/sandbox/public-sample-repo:1.0.0-20170419-150822.8f1959c-SNAPSHOT
   pullPolicy: Always
 service:
   name: sample-service
