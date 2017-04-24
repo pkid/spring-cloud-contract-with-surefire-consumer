@@ -4,7 +4,8 @@
 	<parent>
 		<groupId>com.sap.ngp.test</groupId>
 		<artifactId>sample-repo</artifactId>
-		<version>(1.0.0,)</version>
+		<version>[1.0.0,)</version>
+		<relativePath>../public-sample-repo</relativePath>
 	</parent>
 
 	<packaging>jar</packaging>
