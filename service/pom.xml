@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>com.sap.payroll.services</groupId>
 			<artifactId>starters-basic</artifactId>
-			<version>[0.2.1,0.2.2)</version>
+			<version>(0.2.1,0.2.2)</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
