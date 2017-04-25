@@ -1,54 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sap.ngp.test</groupId>
-    <artifactId>sample-repo</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+	<groupId>com.sap.ngp.test</groupId>
+	<artifactId>sample-repo</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0-SNAPSHOT</version>
 
-    <name>sample-repo</name>
-    <description>Sample Repo</description>
+	<name>sample-repo</name>
+	<description>Sample Repo</description>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.1.RELEASE</version>
-    </parent>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.1.RELEASE</version>
+	</parent>
+	
+	<!-- GIT connection to project to get GIT SHA-->
+	<scm>
+		<connection>scm:git:git://github.wdf.sap.corp:nextgenpayroll-zugspitze-infrastructure/public-sample-repo.git</connection>
+	</scm>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.sap.ngp.sample-repo</groupId>
+				<artifactId>sample-repo-api</artifactId>
+				<version>${own.version}</version>
+			</dependency>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-	        <groupId>com.sap.ngp.sample-repo</groupId>
-		<artifactId>sample-repo-api</artifactId>
-	        <version>${own.version}</version>
-	    </dependency>
+			<dependency>
+				<groupId>com.sap.ngp.sample-repo</groupId>
+				<artifactId>sample-repo-service</artifactId>
+				<version>${own.version}</version>
+			</dependency>
 
-	    <dependency>
-		<groupId>com.sap.ngp.sample-repo</groupId>
-		<artifactId>sample-repo-service</artifactId>
-		<version>${own.version}</version>
-	    </dependency>
+		</dependencies>
+	</dependencyManagement>
 
-	</dependencies>
-    </dependencyManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<!-- Get GIT SHA -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<shortRevisionLength>7</shortRevisionLength>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Store GIT SHA in MANIFEST.MF-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<GIT-SHA>${buildNumber}</GIT-SHA>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <modules>
-	<module>api</module>
-	<module>service</module>
-    </modules>
+	<modules>
+		<module>api</module>
+		<module>service</module>
+	</modules>
 </project>
