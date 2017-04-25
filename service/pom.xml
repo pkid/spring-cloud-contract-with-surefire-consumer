@@ -13,7 +13,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.sap.payroll.services</groupId>
+			<groupId>com.sap.ngp.test.commons</groupId>
 			<artifactId>starters-basic</artifactId>
 			<version>0.2.1-SNAPSHOT</version>
 			<exclusions>
