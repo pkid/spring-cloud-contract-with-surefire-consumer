@@ -23,7 +23,7 @@ You have to change one line inside the Dockerfile
 ## POM.XML
 In the POM file you have to specify the build plugins for you JAR. To have the possibility to trace back from the jar to the commit we decided to write the GIT-SHA into the MANIFEST.MF inside the JAR.  
 
-What you have to add into you Main-POM to reach this?  
+What you have to add into you Main-POM (`root/pom.xml`) to reach this?  
 
 1. A Git Connection:
 ```xml
