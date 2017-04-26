@@ -21,6 +21,54 @@ You have to change one line inside the Dockerfile
 ```
 
 ## POM.XML
+In the POM file you have to specify the build plugins for you JAR. To have the possibility to trace back from the jar to the commit we decided to write the GIT-SHA into the MANIFEST.MF inside the JAR.  
+
+What you have to add into you Main-POM to reach this?  
+
+1. A Git Connection:
+```xml
+<!-- GIT connection to project to get GIT SHA-->
+<scm>
+	<connection>scm:git:git://github.wdf.sap.corp:nextgenpayroll-zugspitze-infrastructure/public-sample-repo.git</connection>
+</scm>
+```
+
+2. Two Plugins:
+```xml
+<!-- Get GIT SHA -->
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>buildnumber-maven-plugin</artifactId>
+	<version>1.1</version>
+	<configuration>
+		<shortRevisionLength>7</shortRevisionLength>
+	</configuration>
+	<executions>
+		<execution>
+			<phase>validate</phase>
+			<goals>
+				<goal>create</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>
+<!-- Store GIT SHA in MANIFEST.MF-->
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jar-plugin</artifactId>
+	<version>2.1</version>
+	<configuration>
+		<archive>
+			<manifest>
+				<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+			</manifest>
+			<manifestEntries>
+				<GIT-SHA>${buildNumber}</GIT-SHA>
+			</manifestEntries>
+		</archive>
+	</configuration>
+</plugin>
+```
 Attention with the artifacId's of you different POM-Files:
 * root/pom.xml: 
 ```xml
