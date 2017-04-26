@@ -1,7 +1,7 @@
 <configuration>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%X{correlationid}] [%X{targetroute}] [%thread] %-5level [%F:%L] - %msg %n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%X{correlationid}] [%thread] %-5level [%F:%L] - %msg %n</pattern>
         </encoder>
     </appender>
 
