@@ -19,7 +19,8 @@ spec:
         image: "{{ .Values.image.repository }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-        - containerPort: {{ .Values.service.internalPort }}
+        - name: web
+          containerPort: {{ .Values.service.internalPort }}
 #        livenessProbe:
 #          httpGet:
 #            path: /
