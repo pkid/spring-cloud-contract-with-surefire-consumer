@@ -9,7 +9,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.service.externalPort }}
+  - port: 8080
     targetPort: web
     protocol: TCP
     name: web
