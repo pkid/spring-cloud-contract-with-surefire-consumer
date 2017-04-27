@@ -6,8 +6,6 @@ applicationId: infrastructure-sample-service
 applicationPort: 8080
 image:
   repository: docker.wdf.sap.corp:51032/sandbox/public-sample-repo:1.0.0-20170420-145335.c77f17e-SNAPSHOT
-service:
-  type: NodePort
 resources:
   limits:
     cpu: 2000m
