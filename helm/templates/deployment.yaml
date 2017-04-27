@@ -15,7 +15,7 @@ spec:
       imagePullSecrets:
         - name: ngpregistry
       containers:
-      - name: {{ .Values.image.repository }}
+      - name: {{ $v := .Values.image.repository | split "/" }}{{$v._0}}
         image: "{{ .Values.image.repository }}"
         imagePullPolicy: IfNotPresent
         ports:
