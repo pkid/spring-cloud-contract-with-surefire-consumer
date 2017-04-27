@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Values.serviceId }}
+  name: {{ .Values.applicationId }}
   namespace: payroll
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.serviceId }}
+        app: {{ .Values.applicationId }}
     spec:
       imagePullSecrets:
         - name: ngpregistry
@@ -20,7 +20,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - name: web
-          containerPort: {{ .Values.service.internalPort }}
+          containerPort: {{ .Values.applicationPort }}
 #        livenessProbe:
 #          httpGet:
 #            path: /
