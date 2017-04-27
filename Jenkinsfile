@@ -38,7 +38,8 @@ stage('Commit') {
 
 stage('Update K8S') {
     node {
-	    	def gitSHA = commitPipeline.getCurrentCommitSHA()        
+	    	def gitSHA = commitPipeline.getCurrentCommitSHA()
+	        updateK8SPipeline.helmUpgrade(system: "trunk", gitSHA: gitSHA)
     }
 }
 //---------------------------------------------------------------------------
