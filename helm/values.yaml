@@ -11,6 +11,6 @@ resources:
     memory: 1024Mi
 
 # optional defaulted values
-# gitSHA: 99999
+# gitSHA: 1234567
 # replicaCount: 1
 
