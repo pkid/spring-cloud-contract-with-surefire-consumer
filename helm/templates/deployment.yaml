@@ -17,7 +17,7 @@ spec:
       containers:
       - name: {{ .Values.image.repository }}
         image: "{{ .Values.image.repository }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: IfNotPresent
         ports:
         - name: web
           containerPort: {{ .Values.service.internalPort }}
