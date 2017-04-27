@@ -1,4 +1,3 @@
-replicaCount: 1
 applicationId: infrastructure-sample-service
 applicationPort: 8080
 image:
