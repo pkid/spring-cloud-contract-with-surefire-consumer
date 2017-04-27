@@ -5,11 +5,12 @@ metadata:
   name: sampleservice
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    context: ngp
 spec:
   type: {{ .Values.service.type }}
   ports:
   - port: {{ .Values.service.externalPort }}
-    targetPort: {{ .Values.service.internalPort }}
+    targetPort: web
     protocol: TCP
     name: {{ .Values.service.name }}
   selector:
