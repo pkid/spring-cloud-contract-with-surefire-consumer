@@ -24,10 +24,10 @@ spec:
 #        livenessProbe:
 #          httpGet:
 #            path: /
-#            port: {{ .Values.service.applicationPort  }}
+#            port: {{ .Values.applicationPort  }}
 #        readinessProbe:
 #          httpGet:
 #            path: /
-#            port: {{ .Values.service.applicationPort  }}
+#            port: {{ .Values.applicationPort  }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
