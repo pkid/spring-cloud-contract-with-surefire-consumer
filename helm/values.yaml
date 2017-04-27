@@ -5,7 +5,6 @@ replicaCount: 1
 serviceId: infrastructure-sample-service
 image:
   repository: docker.wdf.sap.corp:51032/sandbox/public-sample-repo:1.0.0-20170420-145335.c77f17e-SNAPSHOT
-  pullPolicy: IfNotPresent
 service:
   type: NodePort
   externalPort: 8080
