@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ .Values.serviceId }}
   namespace: payroll
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
@@ -15,7 +15,7 @@ spec:
       imagePullSecrets:
         - name: ngpregistry
       containers:
-      - name: {{ .Chart.Name }}
+      - name: {{ .Values.image.repository }}
         image: "{{ .Values.image.repository }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
