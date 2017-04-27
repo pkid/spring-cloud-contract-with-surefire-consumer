@@ -10,3 +10,7 @@ resources:
     cpu: 1000m
     memory: 1024Mi
 
+# optional defaulted values
+# gitSHA: 99999
+# replicaCount: 1
+
