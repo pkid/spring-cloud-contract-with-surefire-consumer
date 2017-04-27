@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: payroll
-  name: sampleservice
+  name: {{ .Values.serviceId }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     context: ngp
