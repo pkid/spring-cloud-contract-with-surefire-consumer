@@ -7,6 +7,7 @@ import groovy.transform.*
 @Library('ngplibrary')
 def gitPipeline = new io.ngp.GitPipeline()
 def commitPipeline = new io.ngp.CommitPipeline()
+def updateK8SPipeline = new io.ngp.K8SPipeline()
 
 //variables
 def newDockerImage
@@ -32,6 +33,12 @@ stage('Commit') {
 	    	commitPipeline.setGitUrl(gitUrl)
 	   	commitPipeline.setGithubRepo(githubRepo)
 	    	commitPipeline.commit()
+    }
+}
+
+stage('Update K8S') {
+    node {
+	    	def gitSHA = commitPipeline.getCurrentCommitSHA()        
     }
 }
 //---------------------------------------------------------------------------
