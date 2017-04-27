@@ -12,7 +12,7 @@ spec:
   - port: {{ .Values.service.externalPort }}
     targetPort: web
     protocol: TCP
-    name: {{ .Values.service.name }}
+    name: web
   selector:
     app: mysample
   type: NodePort
