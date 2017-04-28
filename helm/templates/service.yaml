@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: payroll
-  name: {{ .Values.applicationId }}
+  name: {{ .Values.applicationId | default "git-repo-name" }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     context: ngp
@@ -14,4 +14,4 @@ spec:
     protocol: TCP
     name: web
   selector:
-    app: {{ .Values.applicationId }}
+    app: {{ .Values.applicationId | default "git-repo-name" }}
