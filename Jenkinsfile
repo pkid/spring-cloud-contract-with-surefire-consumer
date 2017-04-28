@@ -32,14 +32,14 @@ stage('Commit') {
 		deleteDir()
 	    	commitPipeline.setGitUrl(gitUrl)
 	   	commitPipeline.setGithubRepo(githubRepo)
-	    	commitPipeline.commit()
+	    	newDockerImage = commitPipeline.commit()
     }
 }
 
 stage('Update K8S') {
     node {
 	    	def gitSHA = commitPipeline.getCurrentCommitSHA()
-	        updateK8SPipeline.helmUpgrade(system: "trunk", gitSHA: gitSHA)
+	        updateK8SPipeline.helmUpgrade(system: "trunk", gitSHA: gitSHA, newImage: newDockerImage)
     }
 }
 //---------------------------------------------------------------------------
