@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Values.applicationId }}
+  name: {{ .Values.applicationId | default "git-repo-name"}}
   namespace: payroll
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
@@ -10,12 +10,12 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.applicationId }}
+        app: {{ .Values.applicationId | default "git-repo-name"}}
     spec:
       imagePullSecrets:
         - name: ngpregistry
       containers:
-      - name: {{ .Values.applicationId }}-{{ .Values.gitSHA | default "1234567" }}
+      - name: {{ .Values.applicationId | default "git-repo-name"}}-{{ .Values.gitSHA | default "1234567" }}
         image: "{{ .Values.image.repository }}"
         imagePullPolicy: IfNotPresent
         ports:
