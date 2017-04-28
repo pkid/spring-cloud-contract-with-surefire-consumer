@@ -1,4 +1,3 @@
-applicationId: infrastructure-sample-service
 applicationPort: 8080
 image:
   repository: docker.wdf.sap.corp:51032/sandbox/public-sample-repo:1.0.0-SNAPSHOT-fadb26a
@@ -13,4 +12,6 @@ resources:
 # optional defaulted values
 # gitSHA: 1234567
 # replicaCount: 1
+# applicationId: git-repo-name
+
 
