@@ -23,7 +23,7 @@ public class GreetingController {
          
     
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="NGP") String name) {
+    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         requests.inc();
         logger.info("Greetings will be sent out! Hi!");
         return new Greeting(counter.incrementAndGet(),
