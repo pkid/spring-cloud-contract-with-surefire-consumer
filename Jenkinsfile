@@ -11,11 +11,7 @@ def updateK8SPipeline = new io.ngp.K8SPipeline()
 def notifyPipeline = new io.ngp.NotifyPipeline()
 
 //variables
-def recipientProviders = emailextrecipients([
-        [$class: 'CulpritsRecipientProvider'],
-        [$class: 'DevelopersRecipientProvider'],
-        [$class: 'RequesterRecipientProvider']
-])
+
 def newDockerImage
 def githubRepo
 def gitUrl
@@ -24,7 +20,7 @@ def gitUrl
 node {
 	try {
 		// Send start Notification
-		notifyPipeline.setRecipientProviders(recipientProviders)
+		emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: 'abc'
 		notifyPipeline.notifyBuild('STARTED')
 
 //stages
