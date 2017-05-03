@@ -11,9 +11,8 @@ def updateK8SPipeline = new io.ngp.K8SPipeline()
 def notifyPipeline = new io.ngp.NotifyPipeline()
 
 //variables
-def recipientProviders = emailextrecipients([
-        [$class: 'DevelopersRecipientProvider'],
-])
+def recipientProviders = [$class: 'DevelopersRecipientProvider']
+
 def newDockerImage
 def githubRepo
 def gitUrl
