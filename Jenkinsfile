@@ -18,6 +18,7 @@ def gitUrl
 
 node {
 	try {
+		// Send start Notification
 		notifyPipeline.notifyBuild('STARTED')
 
 //stages
@@ -47,13 +48,14 @@ stage('Update K8S') {
 	        updateK8SPipeline.helmUpgrade(system: "trunk", helmRelease: githubRepo, newImage: newDockerImage, gitSHA: gitSHA)
     }
 }
-  } catch (e) {
-    // If there was an exception thrown, the build failed
-    currentBuild.result = "FAILED"
-    throw e
-  } finally {
-    // Success or failure, always send notifications
-    notifyPipeline.notifyBuild(currentBuild.result)
-  }
+			
+  	} catch (e) {
+    		// If there was an exception thrown, the build failed
+    		currentBuild.result = "FAILED"
+    		throw e
+  	} finally {
+    		// Success or failure, always send notifications
+   		notifyPipeline.notifyBuild(currentBuild.result)
+  	}
 }
 //---------------------------------------------------------------------------
