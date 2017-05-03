@@ -23,13 +23,13 @@ node {
 //stages
 stage('Get Git Info') {
     node {
-	    	deleteDir()
+	  deleteDir()
 		def githubInfo = gitPipeline.getGithubInfo()
 		def githubOrg = githubInfo['org']
 		githubRepo = githubInfo['repo']
 		def githubBranch = githubInfo['branch']
 		gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
-		committerMail = gitPipeline.getGithubCommitterMail()
+		committerMail = 'patrick.ghezali@sap.com'
     }
 }
 
@@ -37,7 +37,7 @@ stage('Commit') {
     node {
 		deleteDir()
 	    	commitPipeline.setGitUrl(gitUrl)
-	   	commitPipeline.setGithubRepo(githubRepo)
+	    	commitPipeline.setGithubRepo(githubRepo)
 	    	newDockerImage = commitPipeline.commit()
     }
 }
