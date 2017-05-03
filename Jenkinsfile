@@ -8,6 +8,7 @@ import groovy.transform.*
 def gitPipeline = new io.ngp.GitPipeline()
 def commitPipeline = new io.ngp.CommitPipeline()
 def updateK8SPipeline = new io.ngp.K8SPipeline()
+def notifyPipeline = new io.ngp.NotifyPipeline()
 
 //variables
 def newDockerImage
@@ -15,10 +16,14 @@ def githubRepo
 def gitUrl
 //---------------------------------------------------------------------------
 
+node {
+	try {
+		notifyBuild('STARTED')
+
 //stages
 stage('Get Git Info') {
     node {
-		deleteDir()
+	    	notifyPipeline.notifyBuild('STARTED')
 		def githubInfo = gitPipeline.getGithubInfo()
 		def githubOrg = githubInfo['org']
 		githubRepo = githubInfo['repo']
@@ -41,5 +46,14 @@ stage('Update K8S') {
 	    	def gitSHA = commitPipeline.getCurrentCommitSHA()
 	        updateK8SPipeline.helmUpgrade(system: "trunk", helmRelease: githubRepo, newImage: newDockerImage, gitSHA: gitSHA)
     }
+}
+  } catch (e) {
+    // If there was an exception thrown, the build failed
+    currentBuild.result = "FAILED"
+    throw e
+  } finally {
+    // Success or failure, always send notifications
+    notifyBuild(currentBuild.result)
+  }
 }
 //---------------------------------------------------------------------------
