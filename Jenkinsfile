@@ -29,7 +29,7 @@ stage('Get Git Info') {
 		githubRepo = githubInfo['repo']
 		def githubBranch = githubInfo['branch']
 		gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
-		committerMail = 'patrick.ghezali@sap.com'
+		committerMail = gitPipeline.getGithubCommitterMail
     }
 }
 
