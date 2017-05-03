@@ -11,13 +11,16 @@ def updateK8SPipeline = new io.ngp.K8SPipeline()
 def notifyPipeline = new io.ngp.NotifyPipeline()
 
 //variables
-
+def userEmail
 def newDockerImage
 def githubRepo
 def gitUrl
 //---------------------------------------------------------------------------
 
 node {
+	wrap([$class: 'BuildUser']) {
+	def userEmail = env.BUILD_USER_ID
+	}
 	try {
 		// Send start notification
 		notifyBuild('STARTED')
@@ -89,14 +92,9 @@ def notifyBuild(String buildStatus = 'STARTED') {
 //  slackSend (color: colorCode, message: summary)
 
   emailext (
-		wrap([$class: 'BuildUser']) {
-			def user = env.BUILD_USER_ID
-
       subject: subject,
       body: details,
     //  recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-		//to: "${env.BUILD_USER_EMAIL}"
-		to: user
+			to: userEmail
     )
-	}
 }
