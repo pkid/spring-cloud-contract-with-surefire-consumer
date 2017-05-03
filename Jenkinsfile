@@ -11,7 +11,6 @@ def updateK8SPipeline = new io.ngp.K8SPipeline()
 def notifyPipeline = new io.ngp.NotifyPipeline()
 
 //variables
-def userEmail
 def newDockerImage
 def githubRepo
 def gitUrl
@@ -19,8 +18,6 @@ def gitUrl
 
 node {
 	wrap([$class: 'BuildUser']) {
-	userEmail = env.BUILD_USER_ID
-	}
 	try {
 		// Send start notification
 		notifyBuild('STARTED')
@@ -62,6 +59,7 @@ stage('Update K8S') {
    		notifyBuild(currentBuild.result)
   	}
 }
+}
 //---------------------------------------------------------------------------
 
 def notifyBuild(String buildStatus = 'STARTED') {
@@ -95,6 +93,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
       subject: subject,
       body: details,
     //  recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-			to: userEmail
+			to: env.BUILD_USER_EMAIL
     )
 }
