@@ -19,7 +19,7 @@ def gitUrl
 
 node {
 	try {
-		// Send start Notification
+		// Send start notification
 		notifyPipeline.notifyBuild('STARTED')
 
 //stages
