@@ -20,7 +20,7 @@ def gitUrl
 node {
 	try {
 		// Send start Notification
-		emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: 'abc'
+		emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test', to: 'patrick.ghezali@sap.com'
 		notifyPipeline.notifyBuild('STARTED')
 
 //stages
