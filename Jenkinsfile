@@ -92,6 +92,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
       subject: subject,
       body: details,
       recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-			to: "${BUILD_USER_EMAIL}"
+			to: "${env.BUILD_USER_EMAIL}"
     )
 }
