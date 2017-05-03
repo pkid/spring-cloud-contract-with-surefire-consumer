@@ -17,7 +17,6 @@ def gitUrl
 //---------------------------------------------------------------------------
 
 node {
-	wrap([$class: 'BuildUser']) {
 	try {
 		// Send start notification
 		notifyBuild('STARTED')
@@ -59,7 +58,6 @@ stage('Update K8S') {
    		notifyBuild(currentBuild.result)
   	}
 }
-}
 //---------------------------------------------------------------------------
 
 def notifyBuild(String buildStatus = 'STARTED') {
@@ -93,6 +91,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
       subject: subject,
       body: details,
     //  recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-			to: env.BUILD_USER_EMAIL
+			to: patrick.ghezali@sap.com
     )
 }
