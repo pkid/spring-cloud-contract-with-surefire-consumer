@@ -18,12 +18,12 @@ def gitUrl
 
 node {
 	try {
-		notifyBuild('STARTED')
+		notifyPipeline.notifyBuild('STARTED')
 
 //stages
 stage('Get Git Info') {
     node {
-	    	notifyPipeline.notifyBuild('STARTED')
+	    	deleteDir()
 		def githubInfo = gitPipeline.getGithubInfo()
 		def githubOrg = githubInfo['org']
 		githubRepo = githubInfo['repo']
@@ -53,7 +53,7 @@ stage('Update K8S') {
     throw e
   } finally {
     // Success or failure, always send notifications
-    notifyBuild(currentBuild.result)
+    notifyPipeline.notifyBuild(currentBuild.result)
   }
 }
 //---------------------------------------------------------------------------
