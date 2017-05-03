@@ -14,12 +14,11 @@ def notifyPipeline = new io.ngp.NotifyPipeline()
 def newDockerImage
 def githubRepo
 def gitUrl
+def committerMail
 //---------------------------------------------------------------------------
 
 node {
 	try {
-		// Send start notification
-		notifyPipeline.notifyBuild('STARTED')
 
 //stages
 stage('Get Git Info') {
@@ -30,6 +29,7 @@ stage('Get Git Info') {
 		githubRepo = githubInfo['repo']
 		def githubBranch = githubInfo['branch']
 		gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
+		committerMail = gitPipeline.getGithubCommitterMail()
     }
 }
 
@@ -55,7 +55,7 @@ stage('Update K8S') {
     		throw e
   	} finally {
     		// Success or failure, always send notifications
-   		notifyPipeline.notifyBuild(currentBuild.result)
+   		notifyPipeline.notifyBuild(currentBuild.result, committerMail)
   	}
 }
 //---------------------------------------------------------------------------
