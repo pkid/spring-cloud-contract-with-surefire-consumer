@@ -72,7 +72,6 @@ def notifyBuild(String buildStatus = 'STARTED') {
   def summary = "${subject} (${env.BUILD_URL})"
   def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
     <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>"""
-  def buildUserId = "${env.BUILD_USER_ID}"
 
   // Override default values based on build status
   if (buildStatus == 'STARTED') {
@@ -93,6 +92,5 @@ def notifyBuild(String buildStatus = 'STARTED') {
       subject: subject,
       body: details,
       recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-      to: buildUserId
     )
 }
