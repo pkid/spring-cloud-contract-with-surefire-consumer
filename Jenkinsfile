@@ -11,6 +11,9 @@ def updateK8SPipeline = new io.ngp.K8SPipeline()
 def notifyPipeline = new io.ngp.NotifyPipeline()
 
 //variables
+def recipientProviders = emailextrecipients([
+        [$class: 'DevelopersRecipientProvider'],
+])
 def newDockerImage
 def githubRepo
 def gitUrl
@@ -19,6 +22,7 @@ def gitUrl
 node {
 	try {
 		// Send start Notification
+		notifyPipeline.setRecipientProviders(recipientProviders)
 		notifyPipeline.notifyBuild('STARTED')
 
 //stages
@@ -30,7 +34,7 @@ stage('Get Git Info') {
 		githubRepo = githubInfo['repo']
 		def githubBranch = githubInfo['branch']
 		gitUrl = 'git@github.wdf.sap.corp:' + githubOrg + '/' + githubRepo + '.git'
-    }	
+    }
 }
 
 stage('Commit') {
@@ -48,7 +52,7 @@ stage('Update K8S') {
 	        updateK8SPipeline.helmUpgrade(system: "trunk", helmRelease: githubRepo, newImage: newDockerImage, gitSHA: gitSHA)
     }
 }
-			
+
   	} catch (e) {
     		// If there was an exception thrown, the build failed
     		currentBuild.result = "FAILED"
