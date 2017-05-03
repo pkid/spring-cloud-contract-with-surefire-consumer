@@ -89,9 +89,14 @@ def notifyBuild(String buildStatus = 'STARTED') {
 //  slackSend (color: colorCode, message: summary)
 
   emailext (
+		wrap([$class: 'BuildUser']) {
+			def user = env.BUILD_USER_ID
+
       subject: subject,
       body: details,
     //  recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-			to: "${env.BUILD_USER_EMAIL}"
+		//to: "${env.BUILD_USER_EMAIL}"
+		to: user
     )
+	}
 }
