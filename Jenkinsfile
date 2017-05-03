@@ -19,7 +19,7 @@ def gitUrl
 
 node {
 	wrap([$class: 'BuildUser']) {
-	def userEmail = env.BUILD_USER_ID
+	userEmail = env.BUILD_USER_ID
 	}
 	try {
 		// Send start notification
