@@ -19,6 +19,7 @@ def committerMail
 
 node {
 	try {
+		notifyPipeline.notifyPreBuild()
 
 //stages
 stage('Get Git Info') {
@@ -55,7 +56,7 @@ stage('Update K8S') {
     		throw e
   	} finally {
     		// Success or failure, always send notifications
-   		notifyPipeline.notifyBuild(currentBuild.result, committerMail)
+   		notifyPipeline.notifyPostBuild(currentBuild.result, committerMail)
   	}
 }
 //---------------------------------------------------------------------------
