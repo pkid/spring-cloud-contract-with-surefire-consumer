@@ -20,7 +20,7 @@ def committerMail
 node {
 	try {
 		notifyPipeline.notifyPreBuild()
-		echo "STARTED BY USER = ${env.STARTED_BY}"
+		echo "STARTED BY USER = ${STARTED_BY}"
 //stages
 stage('Get Git Info') {
     node {
