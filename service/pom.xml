@@ -83,8 +83,20 @@
 				<version>2.20</version>
 				<configuration>
 					<includes>
-						<include>**/*IT.java</include>
+						<include>**/*UT.java</include>
 					</includes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>1.1.0.RELEASE</version>
+				<!-- Don't forget about this value !! -->
+				<extensions>true</extensions>
+				<configuration>
+					<!-- Provide the base class for your auto-generated tests -->
+					<baseClassForTests>hello.ExampleJavaConsumerPactTestIT</baseClassForTests>
 				</configuration>
 			</plugin>
 
@@ -102,7 +114,7 @@
 						<version>2.19.1</version>
 						<configuration>
 							<includes>
-								<include>**/*UT</include>
+								<include>**/*IT.java</include>
 							</includes>
 						</configuration>
 					</plugin>

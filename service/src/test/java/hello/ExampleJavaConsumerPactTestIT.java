@@ -27,7 +27,7 @@ public class ExampleJavaConsumerPactTestIT {
     public void setup() {
         RestAssuredMockMvc.standaloneSetup(new GreetingController());
     }
-
+    
     @Test
     public void aQuickTest(){
     }
