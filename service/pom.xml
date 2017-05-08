@@ -114,7 +114,7 @@
 						<version>2.19.1</version>
 						<configuration>
 							<includes>
-								<include>**/*IT.java</include>
+								<include>**/*ContractVerifierTest.java</include>
 							</includes>
 						</configuration>
 					</plugin>
