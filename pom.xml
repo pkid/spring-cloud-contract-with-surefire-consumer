@@ -16,14 +16,23 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.1.RELEASE</version>
 	</parent>
-	
-	<!-- GIT connection to project to get GIT SHA-->
+
+	<!-- GIT connection to project to get GIT SHA -->
 	<scm>
 		<connection>scm:git:git://github.wdf.sap.corp:nextgenpayroll-zugspitze-infrastructure/public-sample-repo.git</connection>
 	</scm>
-	
+
 	<dependencyManagement>
 		<dependencies>
+			<!-- If you're adding this dependency explicitly you have to add it *BEFORE* 
+				the Release Train BOM -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-dependencies</artifactId>
+				<version>1.1.0.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>com.sap.ngp.sample-repo</groupId>
 				<artifactId>sample-repo-api</artifactId>
@@ -36,11 +45,37 @@
 				<version>${own.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>au.com.dius</groupId>
+				<artifactId>pact-jvm-consumer-junit_2.11</artifactId>
+				<version>3.3.8</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<build>
+
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>1.1.0.RELEASE</version>
+				<!-- Don't forget about this value !! -->
+				<extensions>true</extensions>
+				<configuration>
+					<!-- Provide the base class for your auto-generated tests -->
+					<baseClassForTests>hello.ExampleJavaConsumerPactTestIT</baseClassForTests>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -66,7 +101,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Store GIT SHA in MANIFEST.MF-->
+			<!-- Store GIT SHA in MANIFEST.MF -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
