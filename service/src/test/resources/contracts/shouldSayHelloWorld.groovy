@@ -13,7 +13,7 @@ org.springframework.cloud.contract.spec.Contract.make {
     response { // (6)
         status 200 // (7)
         body([ // (8)
-               "content": "Hello, Worl!"
+               "content": "Hello, World!"
         ])
         headers { // (9)
             contentType('application/json;charset=UTF-8')
