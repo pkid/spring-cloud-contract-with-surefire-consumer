@@ -54,10 +54,10 @@ public class ConsumerTest {
     
     @Test
     public void shouldGiveFreeSubscriptionForFriends() throws Exception {
-//        mockMvc.perform(MockMvcRequestBuilders.get("/greeting")
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(content().string("{\"id\":1,\"content\":\"Hello, World!\"}"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/greeting")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("{\"id\":1,\"content\":\"Hello, World!\"}"));
     }
 
 
